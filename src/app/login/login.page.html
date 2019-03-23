@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="logo-holder">
+      <img src="../../assets/images/campTrip_logo_white.png" width="100%" />
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid padding>
+    <ion-row>
+      <ion-col>
+              <ion-item margin-bottom>
+                <ion-input placeholder="Email Address" type="email" [(ngModel)]="email"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input placeholder="Password" type="password" [(ngModel)]="password"></ion-input>
+              </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="8">
+          <ion-button expand="block" color="orange" (click)="login()">Login</ion-button>
+      </ion-col>
+      <ion-col size="4">
+          <ion-button expand="block" color="facebookblue" (click)="facebookLogin()"><ion-icon name="logo-facebook"></ion-icon> Login</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+  <ion-grid padding>
+    <ion-row>
+      <ion-col>
+        <div class="ion-text-center"><ion-text color="light">Don't have an account?</ion-text></div>
+        <ion-button expand="block" color="green" (click)="register()">Register</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="ion-text-center">
+    <ion-icon color="green" size="large" name="logo-facebook"></ion-icon>
+    <ion-icon color="green" size="large" margin-left name="logo-instagram"></ion-icon>
+  </ion-toolbar>
+</ion-footer>

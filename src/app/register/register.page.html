@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button fill="clear" (click)="back()">
+      <ion-icon color="light" name="arrow-back"></ion-icon>
+    </ion-button>
+    <ion-title color="light">Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item margin-bottom>
+          <ion-input placeholder="Name" type="text" [(ngModel)]="model.name"></ion-input>
+        </ion-item>
+        <ion-item margin-bottom>
+          <ion-input placeholder="Surname" type="text" [(ngModel)]="model.surname"></ion-input>
+        </ion-item>
+        <ion-item margin-bottom>
+          <ion-input placeholder="Email" type="text" [(ngModel)]="model.email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="Password" type="password" [(ngModel)]="model.password"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" color="green" margin-top (click)="registerUser()">Register</ion-button>
+        <ion-button expand="block" color="facebookblue" (click)="facebookLogin()">
+          <ion-icon name="logo-facebook"></ion-icon> Login
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

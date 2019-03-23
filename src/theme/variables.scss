@@ -1,0 +1,111 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/theming/
+
+/** Ionic CSS Variables **/
+
+
+:root {
+  --color-lightNavy:#005a99;
+  --color-greyNavy:#274060;
+  --color-navy:#01385e;
+  --color-transNavy:rgba(0, 56, 95,0.8);
+  --color-darkNavy:#0D1321;
+  --color-orange:#ee680f;
+  --color-green:#00999e;
+  --color-grey:#d5d5d5;
+  --color-lightGrey:#e9e9e9;
+  --color-darkGrey:#333333;
+  --color-yellow:#eed10f;
+  --color-white:#ffffff;
+  --color-transWhite:rgba(255,255,255,0.5);
+  --color-facebookBlue:#3D5B97;
+  --color-red:#ee0f25;
+
+  /** primary **/
+  --ion-color-primary: var(--color-navy);
+  --ion-color-primary-rgb: 56, 128, 255;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: var(--color-darkNavy);
+  --ion-color-primary-tint: var(--color-lightNavy);
+
+  /** secondary **/
+  --ion-color-secondary: #0cd1e8;
+  --ion-color-secondary-rgb: 12, 209, 232;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #0bb8cc;
+  --ion-color-secondary-tint: #24d6ea;
+  
+  /** facebook blue **/
+  --ion-color-facebookblue: var(--color-facebookBlue);
+  --ion-color-facebookblue-rgb: 61, 91, 151;
+  --ion-color-facebookblue-contrast: #ffffff;
+  --ion-color-facebookblue-contrast-rgb: 255, 255, 255;
+  --ion-color-facebookblue-shade: var(--color-facebookBlue);
+  --ion-color-facebookblue-tint: var(--color-facebookBlue);
+
+  /** orange **/
+  --ion-color-orange: var(--color-orange);
+  --ion-color-orange-rgb: 238, 104, 15;
+  --ion-color-orange-contrast: #ffffff;
+  --ion-color-orange-contrast-rgb: 255, 255, 255;
+  --ion-color-orange-shade: #df6f25;
+  --ion-color-orange-tint: #ce6219;
+
+    /** green **/
+    --ion-color-green: var(--color-green);
+    --ion-color-green-rgb: 0, 153, 158;
+    --ion-color-green-contrast: #ffffff;
+    --ion-color-green-contrast-rgb: 255, 255, 255;
+    --ion-color-green-shade: #007b80;
+    --ion-color-green-tint: #19afb4;
+
+  /** success **/
+  --ion-color-success: #10dc60;
+  --ion-color-success-rgb: 16, 220, 96;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #0ec254;
+  --ion-color-success-tint: #28e070;
+
+  /** warning **/
+  --ion-color-warning: #ffce00;
+  --ion-color-warning-rgb: 255, 206, 0;
+  --ion-color-warning-contrast: #ffffff;
+  --ion-color-warning-contrast-rgb: 255, 255, 255;
+  --ion-color-warning-shade: #e0b500;
+  --ion-color-warning-tint: #ffd31a;
+
+  /** danger **/
+  --ion-color-danger: #f04141;
+  --ion-color-danger-rgb: 245, 61, 61;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #d33939;
+  --ion-color-danger-tint: #f25454;
+
+  /** dark **/
+  --ion-color-dark: #222428;
+  --ion-color-dark-rgb: 34, 34, 34;
+  --ion-color-dark-contrast: #ffffff;
+  --ion-color-dark-contrast-rgb: 255, 255, 255;
+  --ion-color-dark-shade: #1e2023;
+  --ion-color-dark-tint: #383a3e;
+
+  /** medium **/
+  --ion-color-medium: #989aa2;
+  --ion-color-medium-rgb: 152, 154, 162;
+  --ion-color-medium-contrast: #ffffff;
+  --ion-color-medium-contrast-rgb: 255, 255, 255;
+  --ion-color-medium-shade: #86888f;
+  --ion-color-medium-tint: #a2a4ab;
+
+  /** light **/
+  --ion-color-light: #f4f5f8;
+  --ion-color-light-rgb: 244, 244, 244;
+  --ion-color-light-contrast: #000000;
+  --ion-color-light-contrast-rgb: 0, 0, 0;
+  --ion-color-light-shade: #d7d8da;
+  --ion-color-light-tint: #f5f6f9;
+}

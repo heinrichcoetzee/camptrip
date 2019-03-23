@@ -1,0 +1,15 @@
+
+ion-content,ion-header,ion-footer,ion-toolbar{
+    --background:var(--color-darkGrey);
+    --border-width:0px;
+    --border-color:var(--color-darkGrey)
+
+}
+
+ion-item{
+    --border-radius:1.2rem;
+    --background: transparent;
+    --border-width: 2px;
+    --border-color: var(--color-transWhite);
+    --color:var(--color-transWhite);
+}    
