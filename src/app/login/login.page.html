@@ -1,13 +1,16 @@
-<ion-header>
-  <ion-toolbar>
-    <div class="logo-holder">
-      <img src="../../assets/images/campTrip_logo_white.png" width="100%" />
-    </div>
-  </ion-toolbar>
-</ion-header>
+
 
 <ion-content>
   <ion-grid padding>
+    <ion-row>
+      <ion-col>
+          <ion-toolbar>
+              <div class="logo-holder">
+                <img src="../../assets/images/campTrip_logo_white.png" width="100%" />
+              </div>
+            </ion-toolbar>
+      </ion-col>
+    </ion-row>
     <ion-row>
       <ion-col>
               <ion-item margin-bottom>
@@ -26,7 +29,16 @@
           <ion-button expand="block" color="facebookblue" (click)="facebookLogin()"><ion-icon name="logo-facebook"></ion-icon> Login</ion-button>
       </ion-col>
     </ion-row>
+
+    <ion-row>
+        <ion-col>
+            <ion-text color="orange" marginTop>
+              {{errorMessage}}
+            </ion-text>
+        </ion-col>
+      </ion-row>
   </ion-grid>
+  
   
   <ion-grid padding>
     <ion-row>

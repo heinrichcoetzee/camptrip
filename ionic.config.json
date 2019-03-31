@@ -1,6 +1,8 @@
 {
   "name": "campTrip-ionic",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular",
   "id": "48f8e9bc"
 }

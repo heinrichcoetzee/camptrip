@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IRegistrationUser } from 'src/app/shared/IRegistrationUser.interface';
 import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-profile',
@@ -9,7 +10,13 @@ import { Router } from '@angular/router';
 })
 export class ProfilePage implements OnInit {
   profile:IRegistrationUser;
-  constructor(private router:Router) { }
+  constructor(private router:Router,private _fireAuth:AngularFireAuth) {
+    this.profile = {
+      name:"",
+      surname:"",
+      email:""
+    }
+  }
 
   ngOnInit() {
   }
@@ -18,8 +25,13 @@ export class ProfilePage implements OnInit {
 
   }
   signOut(){
-    this.router.navigate(['login'])
-    localStorage.clear();
+   
+    this._fireAuth.auth.signOut().then((signedout)=>{
+      console.log("signedout",signedout)
+      this.router.navigate(['login'])
+    }).catch((error)=>{
+      console.log("Error",error)
+    });
   }
 
 }
