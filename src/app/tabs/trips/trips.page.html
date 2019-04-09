@@ -5,5 +5,29 @@
 </ion-header>
 
 <ion-content>
+  <ion-grid>
+    <ion-row *ngFor="let trip of dummyData">
+      <ion-col size="3">
+        <div class="trip-picture">
+          <img src="../../../assets/images/campTrip_logo_white.png">
+        </div>
+        <ion-button class="ion-align-self-center" (click)="editItem(trip)" color="green">
+          <!-- <ion-icon name="edit"></ion-icon>  -->
+          Edit
+        </ion-button>
+      </ion-col>
+      <ion-col size="9" padding>
 
+        <ion-text>Name: <span class="text-right">{{trip.name}}</span></ion-text>
+        <ion-text>Location: <span class="text-right">{{trip.location}}</span></ion-text>
+        <ion-text>Description: <span class="text-right">{{trip.description}}</span></ion-text>
+        <ion-text>Date: <span class="text-right">{{trip.fromDate | date:'dd/MM/yyyy'}} to {{trip.fromDate | date:'dd/MM/yyyy'}}</span></ion-text>
+        <ion-text>Duration: <span class="text-right">{{trip.duration}} days</span></ion-text>
+        <ion-text>Distance Traveled Used: <span class="text-right">{{trip.kilometersTraveled}} km</span></ion-text>
+        <ion-text>Caravan Used: <span class="text-right">{{trip.caravanUsed}}</span></ion-text>
+        <ion-text>Vehicle Used: <span class="text-right">{{trip.vehicleUsed}}</span></ion-text>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

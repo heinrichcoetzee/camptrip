@@ -19,6 +19,8 @@ export class ProfilePage implements OnInit {
   }
 
   ngOnInit() {
+    this.profile.name = this._fireAuth.auth.currentUser.displayName;
+    this.profile.email = this._fireAuth.auth.currentUser.email;
   }
 
   changePassword(){

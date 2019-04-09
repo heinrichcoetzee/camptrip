@@ -10,7 +10,8 @@ const routes: Routes = [
   { path: 'trips', loadChildren: './tabs/trips/trips.module#TripsPageModule' },
   { path: 'addtrip', loadChildren: './tabs/addtrip/addtrip.module#AddtripPageModule' },
   { path: 'explore', loadChildren: './tabs/explore/explore.module#ExplorePageModule' },
-  { path: 'profile', loadChildren: './tabs/profile/profile.module#ProfilePageModule' }
+  { path: 'profile', loadChildren: './tabs/profile/profile.module#ProfilePageModule' },
+  { path: 'edit-trip', loadChildren: './tabs/pages/edit-trip/edit-trip.module#EditTripPageModule' }
 ];
 @NgModule({
   imports: [

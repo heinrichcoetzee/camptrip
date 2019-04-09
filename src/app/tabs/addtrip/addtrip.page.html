@@ -5,53 +5,107 @@
 </ion-header>
 
 <ion-content>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <ion-item>
-              <ion-label position="stacked">Trip Name</ion-label>
-              <ion-input [(ngModel)]="trip.name"></ion-input>
-          </ion-item>
-          <ion-item>
+  <ion-grid>
+    <ion-row class="section" *ngIf="!showDetails">
+      <ion-col size="12">
+          <ion-header text-center>Details</ion-header>
+        </ion-col>
+        <ion-col size="12">
+            <ion-button expand="block" color="green" (click)="showDetails = true">
+              <ion-icon name="add-circle"></ion-icon> Add Details
+            </ion-button>
+        </ion-col>
+    </ion-row>
+
+    <ion-row class="section" *ngIf="showDetails">
+        <ion-col size="12">
+            <ion-header text-center>Details</ion-header>
+          </ion-col>
+        <ion-col size="12">
+                <ion-item>
+                    <ion-label position="stacked">Trip Name</ion-label>
+                    <ion-input [(ngModel)]="trip.name"></ion-input>
+                </ion-item>
+            <ion-item>
               <ion-label position="stacked">Location</ion-label>
               <ion-input [(ngModel)]="trip.location"></ion-input>
-          </ion-item>
-          <ion-item>
+            </ion-item>
+            <ion-item>
               <ion-label position="stacked">Description</ion-label>
               <ion-textarea [(ngModel)]="trip.description"></ion-textarea>
-          </ion-item>
-          <ion-item>
+            </ion-item>
+            <ion-item>
               <ion-label position="stacked">Kilometers traveled</ion-label>
               <ion-input [(ngModel)]="trip.kilometersTraveled" type="number"></ion-input>
-          </ion-item>
-          <ion-item>
+            </ion-item>
+            <ion-item>
               <ion-label position="stacked">From Date</ion-label>
               <ion-datetime display-format="DD MMM YYYY" [(ngModel)]="trip.fromDate"></ion-datetime>
-          </ion-item>
-          <ion-item>
+            </ion-item>
+            <ion-item>
               <ion-label position="stacked">To Date</ion-label>
               <ion-datetime display-format="DD MMM YYYY" [(ngModel)]="trip.toDate"></ion-datetime>
-          </ion-item>
-          <ion-item>
+            </ion-item>
+            <ion-item>
               <ion-label position="stacked">Trip Duration (Days)</ion-label>
               <ion-input [(ngModel)]="trip.duration" type="number"></ion-input>
-          </ion-item>
-          <ion-item>
+            </ion-item>
+            <ion-item>
               <ion-label position="stacked">Caravan Used</ion-label>
               <ion-input [(ngModel)]="trip.caravanUsed" type="text"></ion-input>
-          </ion-item>
-          <ion-item>
+            </ion-item>
+            <ion-item>
               <ion-label position="stacked">Vehicle Used</ion-label>
               <ion-input [(ngModel)]="trip.vehicleUsed" type="text"></ion-input>
+            </ion-item>
+          </ion-col>
+    </ion-row>
+
+    <ion-row class="section">
+      <ion-col size="12">
+        <ion-header text-center>Memories</ion-header>
+      </ion-col>
+      <ng-container *ngFor="let memory of trip.memories;let index = index;let last = last">
+        <ion-col size="10">
+          <ion-item>
+            <ion-label position="stacked">Memory Name ({{index+1}})</ion-label>
+            <ion-input [(ngModel)]="memory.name" type="text"></ion-input>
           </ion-item>
         </ion-col>
-      </ion-row>
-      <ion-row margin-top margin-bottom>
+
+        <ion-col size="2" padding-top>
+          <ion-icon (click)="removeMemory(index)" size="large" name="trash"></ion-icon>
+        </ion-col>
         <ion-col>
-          <ion-button expand="block" color="orange" (click)="addTrip()">
-            Log Trip
+          <ion-item>
+            <ion-label position="stacked">Describe Memory</ion-label>
+            <ion-textarea [(ngModel)]="memory.description"></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ng-container>
+      <ion-col size="12">
+          <ion-button expand="block" color="green" (click)="addMemory()">
+            <ion-icon name="add-circle"></ion-icon> Add {{trip.memories.length!=0?'More':''}} Memories
           </ion-button>
         </ion-col>
-      </ion-row>
-    </ion-grid>
+    </ion-row>
+
+    <ion-row class="section">
+        <ion-col size="12">
+            <ion-header text-center>Photos</ion-header>
+          </ion-col>
+          <ion-col size="12" *ngIf="!trip.memories.length">
+              <ion-button expand="block" color="green" (click)="uploadPhoto()">
+                <ion-icon name="add-circle"></ion-icon> Add Photos
+              </ion-button>
+            </ion-col>
+    </ion-row>
+    <ion-row margin-top margin-bottom>
+      <ion-col>
+        <ion-button expand="block" color="orange" (click)="addTrip()">
+         <img src="../../../assets/images/campTrip_logo_white.png" height="90%"> Create Trip
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

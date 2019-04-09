@@ -23,10 +23,15 @@
     </ion-row>
     <ion-row>
       <ion-col size="8">
-          <ion-button expand="block" color="orange" (click)="login()">Login</ion-button>
+          <ion-button expand="block" color="orange" (click)="login()" [disabled]="loginLoading">
+            <ion-spinner name="dots" *ngIf="loginLoading" color="light"></ion-spinner>
+            <ng-container *ngIf="!loginLoading">Login</ng-container>
+          </ion-button>
       </ion-col>
       <ion-col size="4">
-          <ion-button expand="block" color="facebookblue" (click)="facebookLogin()"><ion-icon name="logo-facebook"></ion-icon> Login</ion-button>
+          <ion-button expand="block" color="facebookblue" (click)="facebookLogin()" >
+              <ion-icon name="logo-facebook"></ion-icon> Login
+          </ion-button>
       </ion-col>
     </ion-row>
 

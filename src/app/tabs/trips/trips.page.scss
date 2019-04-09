@@ -4,3 +4,28 @@ ion-content,ion-header,ion-toolbar{
     --background:var(--color-navy);
     --color:#fff;
 }
+.trip-picture{
+    border:1px solid #fff;
+    border-radius: 50%;
+    min-width: 100px;
+    min-height: 100px;
+    vertical-align: middle;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    img{
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 1rem;
+        margin: 0 auto;
+    }
+}
+// ion-avatar{
+//     border: 1px solid #fff;
+//     padding: 5px;
+//     margin: 0 auto;
+// }
+ion-text{
+    display: block;
+}
