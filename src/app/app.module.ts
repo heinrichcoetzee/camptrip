@@ -15,6 +15,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthService } from './services/auth.service';
 import { Facebook } from '@ionic-native/facebook/ngx';
+import { Camera } from "@ionic-native/camera/ngx";
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -31,6 +32,7 @@ import { Facebook } from '@ionic-native/facebook/ngx';
     SplashScreen,
     Facebook,
     AuthService,
+    Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

@@ -16,3 +16,26 @@ ion-item{
     border:1px solid #fff;
     margin-top: 1rem;
 }
+
+.rounded-trash{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border:1px solid #fff;
+    padding-top: 10px;
+    text-align: center;
+}
+.floating-rounded-trash{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border:1px solid #fff;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding-top: 10px;
+    background-color: var(--color-orange);
+}
+h5{
+    font-size: .9rem;
+}

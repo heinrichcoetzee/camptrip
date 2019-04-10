@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ITrip, IMemory } from 'src/app/shared/ITrips.interface';
-import { toDate } from '@angular/common/src/i18n/format_date';
+import { Camera, DestinationType, MediaType, PictureSourceType, CameraOptions } from '@ionic-native/camera/ngx';
+import { ToastController, IonSlides } from '@ionic/angular';
+import { ToastOptions } from '@ionic/core';
 
 @Component({
   selector: 'app-addtrip',
@@ -10,7 +12,8 @@ import { toDate } from '@angular/common/src/i18n/format_date';
 export class AddtripPage implements OnInit {
   trip:ITrip;
   showDetails:boolean;
-  constructor() {
+  photos:Array<any> = [];
+  constructor(private camera:Camera,private toast:ToastController) {
     this.trip = {
       fromDate:new Date(),
       toDate:new Date(),
@@ -18,7 +21,7 @@ export class AddtripPage implements OnInit {
     };
     this.showDetails = false;
   }
-
+  @ViewChild('slides') slides: IonSlides;
   ngOnInit() {
   }
 
@@ -26,9 +29,28 @@ export class AddtripPage implements OnInit {
     console.log("Trip",this.trip);
   }
 
-  uploadPhoto(){
+  removePhoto(index:number){
+    this.photos.splice(index,1);
+    this.slides.slidePrev();
+  };
+
+  async uploadPhoto() {
+      const options: CameraOptions = {
+        correctOrientation: true,
+        destinationType: DestinationType.DATA_URL,
+        mediaType: MediaType.PICTURE,
+        sourceType: PictureSourceType.PHOTOLIBRARY,
+      };
+      this.camera.getPicture(options).then(async (picture) => {
+        const base64 = `data:image/jpeg;base64,${picture}`;
+        this.photos.push(base64);
+        setTimeout(()=>{
+          this.slides.slideTo(this.photos.length);
+        },100);
+      });
 
   }
+
 
   addMemory(memory:IMemory){
     console.log("memory",memory)
