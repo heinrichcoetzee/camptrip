@@ -33,6 +33,7 @@ export class RegisterPage implements OnInit {
     .createUserWithEmailAndPassword(this.model.email.toLowerCase(),this.model.password)
     .then((user)=>{
       console.log("User - ",user);
+      
       this._fireAuth.auth.currentUser.updateProfile({
         displayName:this.model.name + " " + this.model.surname
       }).then((updatedUser)=>{

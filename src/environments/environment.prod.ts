@@ -9,5 +9,6 @@ export const environment = {
     storageBucket: "camptrip-8fe2b.appspot.com",
     messagingSenderId: "720317765395"
   },
-  facebookAppId:"407237716742819"
+  facebookAppId:"407237716742819",
+  googleMapKey:"AIzaSyAlP6s0XbIgKcN1FmcUBGslYnYZNtSZeQs"
 };

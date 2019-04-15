@@ -16,6 +16,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthService } from './services/auth.service';
 import { Facebook } from '@ionic-native/facebook/ngx';
 import { Camera } from "@ionic-native/camera/ngx";
+import { GoogleMapsService } from './services/google-maps.service';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],

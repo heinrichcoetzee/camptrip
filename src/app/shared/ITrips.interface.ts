@@ -4,6 +4,8 @@ export interface IMemory {
 }
 
 export interface ITrip{
+    uid?:string;
+    key?:string;
     name?:string;
     location?:string;
     description?:string;
@@ -14,4 +16,5 @@ export interface ITrip{
     vehicleUsed?:string;
     kilometersTraveled?:number;
     memories?:Array<IMemory>;
+    photos?:Array<any>;
 }

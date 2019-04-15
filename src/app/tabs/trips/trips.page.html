@@ -6,7 +6,8 @@
 
 <ion-content>
   <ion-grid>
-    <ion-row *ngFor="let trip of dummyData">
+    <!-- <ng-container *ngIf="trips$ | async; else loading"> -->
+    <ion-row *ngFor="let trip of trips$ | async">
       <ion-col size="3" text-center>
         <div class="trip-picture">
           <img src="../../../assets/images/campTrip_logo_white.png">
@@ -17,7 +18,6 @@
         </ion-button>
       </ion-col>
       <ion-col size="9" padding>
-
         <ion-text>Name: <span class="text-right">{{trip.name}}</span></ion-text>
         <ion-text>Location: <span class="text-right">{{trip.location}}</span></ion-text>
         <ion-text>Description: <span class="text-right">{{trip.description}}</span></ion-text>
@@ -26,8 +26,13 @@
         <ion-text>Distance Traveled Used: <span class="text-right">{{trip.kilometersTraveled}} km</span></ion-text>
         <ion-text>Caravan Used: <span class="text-right">{{trip.caravanUsed}}</span></ion-text>
         <ion-text>Vehicle Used: <span class="text-right">{{trip.vehicleUsed}}</span></ion-text>
-
       </ion-col>
     </ion-row>
+    <!-- </ng-container>
+    <ng-template #loading>
+        <div class="text-center">
+            <ion-spinner color="light"></ion-spinner>
+        </div>
+    </ng-template> -->
   </ion-grid>
 </ion-content>
