@@ -4,13 +4,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content >
+<ng-container *ngIf="(profile$|async); else loading">
   <ion-grid>
     <ion-row margin-bottom>
       <ion-col>
-        <ion-avatar>
-          <img src="../../../assets/images/user_default.jpg">
-        </ion-avatar>
+          <app-add-profile-pic *ngIf="picture" [picture]="picture" (updatePhoto)="profile.profilePicture = $event;"></app-add-profile-pic>
       </ion-col>
     </ion-row>
 
@@ -20,6 +19,10 @@
           <ion-label position="stacked">Name</ion-label>
           <ion-input [(ngModel)]="profile.name"></ion-input>
         </ion-item>
+        <ion-item>
+            <ion-label position="stacked">Name</ion-label>
+            <ion-input [(ngModel)]="profile.surname"></ion-input>
+          </ion-item>
           <ion-item>
               <ion-label position="stacked">Email</ion-label>
               <ion-input [(ngModel)]="profile.email"></ion-input>
@@ -36,4 +39,8 @@
     </ion-row>
 
   </ion-grid>
+</ng-container>
+<ng-template #loading>
+    <ion-spinner></ion-spinner>
+</ng-template>
 </ion-content>

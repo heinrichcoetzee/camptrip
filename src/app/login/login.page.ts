@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
 import { AuthService } from '../services/auth.service';
 import { Facebook } from '@ionic-native/facebook/ngx';
+import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -14,9 +15,11 @@ export class LoginPage implements OnInit {
   password:string = "";
   errorMessage:string;
   loginLoading:boolean = false;
+  userVerified:boolean = false;
   constructor(private router:Router, private _fireAuth:AngularFireAuth,private fb:Facebook) { }
 
   ngOnInit() {
+   
   }
 
   login(){
@@ -31,13 +34,26 @@ export class LoginPage implements OnInit {
     }
     this.errorMessage = "";
     this.loginLoading = true;
+
+     
       this._fireAuth.auth.signInWithEmailAndPassword(this.email.toLowerCase(),this.password)
       .then((user)=>{
-        console.log("user",user);
-        this.email = "";
-        this.password = "";
-        this.loginLoading = false;
-        this.router.navigate(['main/tabs/home']);
+        this._fireAuth.authState.pipe(first()).subscribe((user)=>{
+          if(!user.emailVerified){
+            user.sendEmailVerification();
+            this.errorMessage = "We sent you a verification link. Please check your email and click on the link to verify your email address.";
+            this.password = "";
+            this.loginLoading = false;
+          }else{
+            this.email = "";
+            this.password = "";
+            this.loginLoading = false;
+            this.router.navigate(['main/tabs/home']);
+          }
+          
+          
+        });
+      
       }).catch((error)=>{
         this.loginLoading = false;
         this.errorMessage = error.message;

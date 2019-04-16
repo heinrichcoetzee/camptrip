@@ -1,0 +1,18 @@
+<ion-grid>
+  <ion-row>
+    <ion-col text-center>
+      <ion-avatar>
+        <ion-spinner class="loading-image" name="bubbles" *ngIf="loading" color="green"></ion-spinner>
+        <img [src]="picture">
+      </ion-avatar>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col text-right>
+      <ion-icon name="camera" (click)="addPicture(1)" color="orange" size="large"></ion-icon>
+    </ion-col>
+    <ion-col>
+      <ion-icon name="image" (click)="addPicture(0)" color="orange" size="large"></ion-icon>
+    </ion-col>
+  </ion-row>
+</ion-grid>

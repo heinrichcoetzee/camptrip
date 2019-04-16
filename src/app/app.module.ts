@@ -17,6 +17,8 @@ import { AuthService } from './services/auth.service';
 import { Facebook } from '@ionic-native/facebook/ngx';
 import { Camera } from "@ionic-native/camera/ngx";
 import { GoogleMapsService } from './services/google-maps.service';
+import { SharedModule } from './shared/shared.module';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -26,7 +28,8 @@ import { GoogleMapsService } from './services/google-maps.service';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, 
     AngularFireAuthModule, 
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    SharedModule
   ],
   providers: [
     StatusBar,
