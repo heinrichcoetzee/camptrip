@@ -1,13 +1,10 @@
 <ion-header>
   <ion-toolbar>
-    <div class="text-center">
-        <ion-button fill="clear" (click)="back()" class="back-button">
+           <ion-button fill="clear" (click)="back()" slot="start">
             <ion-icon color="light" name="arrow-back"></ion-icon>
           </ion-button>
-      <ion-text color="light">Register</ion-text>
-    </div>
-       
-      
+          <ion-text color="light">Register</ion-text>
+          <ion-button fill="clear" slot="end"></ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -21,16 +18,16 @@
     <ion-row>
       <ion-col>
         <ion-item margin-bottom>
-          <ion-input placeholder="Name" type="text" [(ngModel)]="model.name"></ion-input>
+          <ion-input placeholder="Name" type="text" [(ngModel)]="model.name" (ionChange)="clearError()"></ion-input>
         </ion-item>
         <ion-item margin-bottom>
-          <ion-input placeholder="Surname" type="text" [(ngModel)]="model.surname"></ion-input>
+          <ion-input placeholder="Surname" type="text" [(ngModel)]="model.surname" (ionChange)="clearError()"></ion-input>
         </ion-item>
         <ion-item margin-bottom>
-          <ion-input placeholder="Email" type="text" [(ngModel)]="model.email"></ion-input>
+          <ion-input placeholder="Email" type="text" [(ngModel)]="model.email" email (ionChange)="toLowerEmail();clearError()"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input placeholder="Password" type="password" [(ngModel)]="model.password"></ion-input>
+          <ion-input placeholder="Password" type="password" [(ngModel)]="model.password" (ionChange)="clearError()"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>

@@ -5,6 +5,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +17,13 @@ export class ProfilePage implements OnInit {
   profile$:Observable<any>;
   destroy$:Subject<void> = new Subject();
   picture:string;
-  constructor(private router:Router,private _fireAuth:AngularFireAuth,private _firestore:AngularFirestore) {
+  errorMessage:string = "";
+  updatingPassword:boolean = false;
+  constructor(
+    private router:Router,
+    private _fireAuth:AngularFireAuth,
+    private _firestore:AngularFirestore,
+    private toast:ToastController) {
 
   }
 
@@ -30,9 +37,7 @@ export class ProfilePage implements OnInit {
   ionViewDidEnter(){
       this.profile$.pipe(takeUntil(this.destroy$)).subscribe((user:IRegistrationUser)=>{
         this.profile = user[0];
-        console.log("profile ",this.profile);
         this.picture = this.profile.profilePicture?this.profile.profilePicture:undefined;
-        console.log(this.picture)
       });
   }
 
@@ -45,8 +50,42 @@ export class ProfilePage implements OnInit {
   
   }
 
-  changePassword(){
+  changePassword() {
+    console.log("password",this.profile.password)
+    if (this.profile.password && this.profile.password.trim() == "") {
+      this.errorMessage = "Please enter your new password";
+      return;
+    }
 
+    if (this.profile.password.length < 6) {
+      this.errorMessage = "Password should contain at least 6 characters";
+      return false;
+    }
+    this.updatingPassword = true;
+    this._fireAuth.auth.currentUser.updatePassword(this.profile.password)
+      .then(async (result) => {
+        console.log("PAssword Result", result)
+        let toast = await this.toast.create({
+          message: "Password updated!",
+          color:"green",
+          duration: 2000
+        });
+        toast.present();
+        this.profile.password = "";
+        this.updatingPassword = false;
+      }).catch(async (error) => {
+        let toast = await this.toast.create({
+          message: "Password Could not be updated!",
+          color:"danger",
+          duration: 2000
+        });
+        toast.present();
+        this.errorMessage = error.message;
+        setTimeout(() => {
+          this.errorMessage = "";
+        }, 4000)
+        this.updatingPassword = false;
+      })
   }
 
 

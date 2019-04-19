@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IRegistrationUser } from '../shared/IRegistrationUser.interface';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -7,6 +7,7 @@ import { ToastController, LoadingController } from '@ionic/angular';
 import { async } from '@angular/core/testing';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { first } from 'rxjs/operators';
+import { Form } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -32,6 +33,7 @@ export class RegisterPage implements OnInit {
       password:""
     }
   }
+  @ViewChild('emailInput') emailInput:Form;
 
   ngOnInit() {
   }
@@ -56,6 +58,7 @@ export class RegisterPage implements OnInit {
   }
 
   async registerUser(){
+    if(this.validateDetails()){
     let loader = await this.loader.create({
       message:"Registering User"
     });
@@ -84,6 +87,7 @@ export class RegisterPage implements OnInit {
               message:"Completing Registration"
             });
             loader.present();
+            delete this.model.password;
             this._firestore.collection('users').add(this.model).then(async(result)=>{
               this.presentToast("You will receive an email shortly to verify your account")
                 .then(()=>{
@@ -99,6 +103,44 @@ export class RegisterPage implements OnInit {
               this.handleError(error);
               loader.dismiss();
           });
+      }
+  }
+
+  clearError(){
+    this.errorMessage = "";
+  } 
+
+  validateDetails() {
+    if (this.model.name.trim() == "") {
+      this.errorMessage = "Please enter your name";
+      return false;
+    }
+    if (this.model.surname.trim() == "") {
+      this.errorMessage = "Please enter your surname";
+      return false;
+    }
+
+    if (this.model.email.trim() == "") {
+      this.errorMessage = "Please enter your email address";
+      return false;
+    }
+    const emailRegex = (/^(\D)+(\w)*((\.(\w)+)?)+@(\D)+(\w)*((\.(\D)+(\w)*)+)?(\.)[a-z]{2,}$/).test(this.model.email);
+    if(!emailRegex){
+      this.errorMessage = "Invalid email address entered"
+      return false;
+    }
+
+    if (this.model.password.trim() == "") {
+      this.errorMessage = "Please enter your password";
+      return false;
+    }  
+
+    if (this.model.password.length<6) {
+      this.errorMessage = "Password should contain at least 6 characters";
+      return false;
+    }
+
+    return true;
   }
 
   async uploadPicture(uid:string){
@@ -112,6 +154,10 @@ export class RegisterPage implements OnInit {
   handleError(error){
     console.log("Could not create user",error);
     this.errorMessage = error.message;
+  }
+
+  toLowerEmail(){
+    this.model.email = this.model.email.toLowerCase();
   }
 
 }

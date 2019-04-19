@@ -12,14 +12,17 @@ export class AddProfilePicComponent implements OnChanges {
   loading:boolean = false; 
   constructor(private camera:Camera) { }
 
-  ionViewDidEnter(){
- 
-    if(typeof this.picture =="undefined"){
-      this.picture = "../../../assets/images/user_default.jpg";
-    };
-    console.log("Picture Changed",this.picture);
+
+  ngOnChanges(){
+   
   }
 
+  ionViewWillEnter(){
+    if(typeof this.picture == "undefined"){
+      this.picture = "../../../assets/images/user_default.jpg";
+    };
+  }
+  
   addPicture(sourceType:number){
     this.loading = false;
     const cameraOptions:CameraOptions = {

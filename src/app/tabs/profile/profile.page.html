@@ -25,12 +25,25 @@
           </ion-item>
           <ion-item>
               <ion-label position="stacked">Email</ion-label>
-              <ion-input [(ngModel)]="profile.email"></ion-input>
+              <ion-input disabled [(ngModel)]="profile.email"></ion-input>
+          </ion-item>
+          
+
+          <ion-item>
+              <ion-label position="stacked">Updated Password</ion-label>
+              <ion-input type="password" [disabled]="updatingPassword" [(ngModel)]="profile.password"></ion-input>
           </ion-item>
 
-          <ion-button expand="block" color="green" (click)="changePassword()">
-          <ion-icon name="unlock"></ion-icon>  Change Password
+          <ion-button [disabled]="updatingPassword" expand="block" color="green" (click)="changePassword()">
+              <ion-spinner name="dots" *ngIf="updatingPassword" color="light"></ion-spinner>
+              <ng-container *ngIf="!updatingPassword">
+                <ion-icon name="unlock"></ion-icon>  Update Password
+                </ng-container>
           </ion-button>
+
+          <ion-text marginTop color="orange">
+              {{errorMessage}}
+            </ion-text>
 
           <ion-button margin-top color="orange" (click)="signOut()">
               <ion-icon name="log-out"></ion-icon> Sign Out
