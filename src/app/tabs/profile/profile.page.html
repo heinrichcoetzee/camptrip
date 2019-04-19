@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>My Profile</ion-title>
+    <div class="ion-text-center">My Profile</div>
   </ion-toolbar>
 </ion-header>
 
@@ -9,7 +9,7 @@
   <ion-grid>
     <ion-row margin-bottom>
       <ion-col>
-          <app-add-profile-pic *ngIf="picture" [picture]="picture" (updatePhoto)="profile.profilePicture = $event;"></app-add-profile-pic>
+          <app-add-profile-pic [picture]="picture" (updatePhoto)="profile.profilePicture = $event;"></app-add-profile-pic>
       </ion-col>
     </ion-row>
 
@@ -54,6 +54,14 @@
   </ion-grid>
 </ng-container>
 <ng-template #loading>
-    <ion-spinner></ion-spinner>
+    <div class="avatar-skeleton" margin>
+        <ion-skeleton-text animated style="width: 150px; height: 150px;border-radius: 50%"></ion-skeleton-text>
+    </div>
+    <div class="input-skeleton">
+        <ion-skeleton-text animated></ion-skeleton-text>
+        <ion-skeleton-text animated></ion-skeleton-text>
+        <ion-skeleton-text animated></ion-skeleton-text>
+        <ion-skeleton-text animated></ion-skeleton-text>
+    </div>
 </ng-template>
 </ion-content>

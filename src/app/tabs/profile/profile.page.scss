@@ -19,3 +19,20 @@ ion-avatar{
     --color:var(--color-transWhite);
     margin-bottom: 1rem;
 }   
+
+.avatar-skeleton{
+    ion-skeleton-text{
+        margin: 1.2rem auto 1rem auto;
+    }
+    margin: 0 auto;
+}
+
+.input-skeleton{
+    ion-skeleton-text{
+        height: 50px;
+        width:90%;
+        margin: 1.2rem auto;
+        --border-radius: 20px;
+    }
+    margin: 0 auto;
+}

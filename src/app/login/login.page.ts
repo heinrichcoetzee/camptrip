@@ -56,8 +56,19 @@ export class LoginPage implements OnInit {
       
       }).catch((error)=>{
         this.loginLoading = false;
-        this.errorMessage = error.message;
+        if(error.code == "auth/user-not-found"){
+          this.errorMessage = "This email address is not registered.\n Please register by clicking on the 'Register' button";
+        }else{
+          this.errorMessage = error.message;
+        }
+       setTimeout(()=>{
+        this.errorMessage = "";
+       },3000)
       });
+  }
+
+  forgotPassword(){
+    this.router.navigate(['forgotpassword']);
   }
 
   register(){

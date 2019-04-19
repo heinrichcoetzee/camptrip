@@ -51,7 +51,6 @@ export class ProfilePage implements OnInit {
   }
 
   changePassword() {
-    console.log("password",this.profile.password)
     if (this.profile.password && this.profile.password.trim() == "") {
       this.errorMessage = "Please enter your new password";
       return;

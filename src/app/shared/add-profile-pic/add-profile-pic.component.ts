@@ -14,7 +14,9 @@ export class AddProfilePicComponent implements OnChanges {
 
 
   ngOnChanges(){
-   
+    if(typeof this.picture == "undefined" || this.picture == null){
+      this.picture = "../../../assets/images/user_default.jpg";
+    };
   }
 
   ionViewWillEnter(){
