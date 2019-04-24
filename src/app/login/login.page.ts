@@ -11,8 +11,8 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  email:string = "";
-  password:string = "";
+  email:string = "heinrichcoetzee@icloud.com";
+  password:string = "123456";
   errorMessage:string;
   loginLoading:boolean = false;
   userVerified:boolean = false;

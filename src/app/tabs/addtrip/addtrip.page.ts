@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { ITrip, IMemory } from 'src/app/shared/ITrips.interface';
 import { Camera, DestinationType, MediaType, PictureSourceType, CameraOptions } from '@ionic-native/camera/ngx';
 import { ToastController, IonSlides } from '@ionic/angular';
@@ -9,6 +9,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import {first} from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
+import { NgForm } from '@angular/forms';
 
 declare var google: any;
 @Component({
@@ -38,6 +39,7 @@ export class AddtripPage implements OnInit {
   }
   @ViewChild('slides') slides: IonSlides;
   @ViewChild('Map') map :ElementRef;
+  @ViewChild('detailForm') detailForm:NgForm;
 
   ngOnInit() {
     this.dateOptions = {
@@ -89,17 +91,46 @@ export class AddtripPage implements OnInit {
 
  }
 
+
+ async presentToast(message) {
+  const toast = await this.toast.create({
+    message: message,
+    duration: 3000,
+    color:'orange'
+  });
+  toast.present();
+}
+
   async addTrip(){
-    const loading = await this.loadingController.create({
+    if(typeof this.detailForm=="undefined"){
+      this.presentToast('Tap "Add Details" and fill out the details');
+      return;
+    }
+   if(this.detailForm.invalid){
+     this.presentToast("Please complete the fields with a *");
+     return;
+   }
+    let loading = await this.loadingController.create({
       message: 'Creating Trip...'
     });
-    await loading.present();
+    loading.present();
     await this.firestore.collection('trips').add(this.trip).then((documentRef:DocumentReference)=>{
       this.trip.key = documentRef.id;
     });
+    loading.dismiss();
+    loading = await this.loadingController.create({
+      message: 'Uploading Photos...'
+    });
+    loading.present();
     await this.uploadPhotos();
+    loading.dismiss();
+    loading = await this.loadingController.create({
+      message: 'Finishing Trip...'
+    });
+    loading.present();
     await this.firestore.collection('trips').doc(this.trip.key).update(this.trip);
-    await loading.dismiss();
+    loading.dismiss();
+
     this.initTrip();
     this.router.navigate(['main/tabs/trips']);
   }
@@ -115,16 +146,17 @@ export class AddtripPage implements OnInit {
     };
   }
 
-  async uploadPhotos(){  
-    await this.photos.map(async (photo,index)=>{
-      const path = 'photos/' + this.trip.key +'/' + index;
-        await this.firestorage.ref(path).putString(photo.substring(23),'base64');
-        this.firestorage.ref(path).getDownloadURL().pipe(first()).subscribe((url)=>{
-          this.trip.photos.push(url);
-        });
-    });
-
-    Promise.resolve();
+  async uploadPhotos():Promise<any>{  
+     return new Promise((resolve)=>{
+          this.photos.map(async (photo,index)=>{
+            const path = 'photos/' + this.trip.key +'/' + index;
+            await this.firestorage.ref(path).putString(photo.substring(23),'base64');
+            this.firestorage.ref(path).getDownloadURL().pipe(first()).subscribe((url)=>{
+              this.trip.photos.push(url);
+              resolve();
+            });
+          });
+     })
   }
 
 
@@ -139,6 +171,7 @@ export class AddtripPage implements OnInit {
         destinationType: DestinationType.DATA_URL,
         mediaType: MediaType.PICTURE,
         sourceType: PictureSourceType.PHOTOLIBRARY,
+        targetWidth:640
       };
       this.camera.getPicture(options).then(async (picture) => {
         const base64 = `data:image/jpeg;base64,${picture}`;

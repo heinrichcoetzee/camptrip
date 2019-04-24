@@ -16,8 +16,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthService } from './services/auth.service';
 import { Facebook } from '@ionic-native/facebook/ngx';
 import { Camera } from "@ionic-native/camera/ngx";
-import { GoogleMapsService } from './services/google-maps.service';
 import { SharedModule } from './shared/shared.module';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +35,7 @@ import { SharedModule } from './shared/shared.module';
     StatusBar,
     SplashScreen,
     Facebook,
+    ScreenOrientation,
     AuthService,
     Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

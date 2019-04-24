@@ -14,6 +14,7 @@ import { takeUntil } from 'rxjs/operators';
 export class TripsPage implements OnInit {
   trips$:Observable<any>;
   destroy$:Subject<void> = new Subject();
+  loadingImage:any;
   constructor(
     private firestore:AngularFirestore,
     private fireAuth:AngularFireAuth,
@@ -23,11 +24,19 @@ export class TripsPage implements OnInit {
   }
 
   ionViewWillEnter(){
+    this.loadingImage = {
+      0:true,
+      1:true,
+      2:true,
+      3:true,
+      4:true,
+      5:true
+    };
     this.fireAuth.authState.pipe(takeUntil(this.destroy$)).subscribe((user)=>{
       const uid = user.uid;
       this.trips$ = this.firestore.collection('trips',(ref)=>ref.where('uid','==',uid)).valueChanges();
     });
-    
+
   }
 
   ionViewDidLeave(){
@@ -42,7 +51,7 @@ export class TripsPage implements OnInit {
 
 
   editItem(trip:ITrip){
-    this.router.navigate(['edit-trip']);
+    this.router.navigate(['edit-trip',trip]);
   }
 
 }

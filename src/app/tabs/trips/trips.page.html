@@ -5,34 +5,108 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-    <!-- <ng-container *ngIf="trips$ | async; else loading"> -->
-    <ion-row *ngFor="let trip of trips$ | async">
-      <ion-col size="3" text-center>
-        <div class="trip-picture">
-          <img src="../../../assets/images/campTrip_logo_white.png">
-        </div>
-        <ion-button class="ion-align-self-center" (click)="editItem(trip)" color="green">
-          <!-- <ion-icon name="edit"></ion-icon>  -->
-          Edit
-        </ion-button>
-      </ion-col>
-      <ion-col size="9" padding>
-        <ion-text>Name: <span class="text-right">{{trip.name}}</span></ion-text>
-        <ion-text>Location: <span class="text-right">{{trip.location}}</span></ion-text>
-        <ion-text>Description: <span class="text-right">{{trip.description}}</span></ion-text>
-        <ion-text>Date: <span class="text-right">{{trip.fromDate | date:'dd/MM/yyyy'}} to {{trip.fromDate | date:'dd/MM/yyyy'}}</span></ion-text>
-        <ion-text>Duration: <span class="text-right">{{trip.duration}} days</span></ion-text>
-        <ion-text>Distance Traveled Used: <span class="text-right">{{trip.kilometersTraveled}} km</span></ion-text>
-        <ion-text>Caravan Used: <span class="text-right">{{trip.caravanUsed}}</span></ion-text>
-        <ion-text>Vehicle Used: <span class="text-right">{{trip.vehicleUsed}}</span></ion-text>
-      </ion-col>
-    </ion-row>
-    <!-- </ng-container>
+  <ng-container *ngIf="(trips$ | async); else loading"></ng-container>
+    <ion-grid>
+      <ion-row *ngFor="let trip of trips$ | async;let i = index" margin-bottom>
+        <ion-col size="3" text-center>
+          <div class="trip-picture">
+            <img (load)="loadingImage[i] = false" [src]="trip.photos&&trip.photos.length?trip.photos[0]:'../../../assets/images/campTrip_logo_white.png'">
+            <ion-spinner *ngIf="loadingImage[i]"></ion-spinner>
+          </div>
+          <ion-button margin-top class="ion-align-self-center" (click)="editItem(trip)" color="green">
+            Edit
+          </ion-button>
+        </ion-col>
+        <ion-col size="9" padding>
+            <ion-text>loading image->{{loadingImage[i]}}</ion-text>
+          <ion-text>Name: <span class="text-right">{{trip.name}}</span></ion-text>
+          <ion-text>Location: <span class="text-right">{{trip.location}}</span></ion-text>
+          <ion-text>Description: <span class="text-right">{{trip.description}}</span></ion-text>
+          <ion-text>Date: <span class="text-right">{{trip.fromDate | date:'dd/MM/yyyy'}} to
+              {{trip.fromDate | date:'dd/MM/yyyy'}}</span></ion-text>
+          <ion-text>Duration: <span class="text-right">{{trip.duration}} days</span></ion-text>
+          <ion-text>Distance: <span class="text-right">{{trip.kilometersTraveled}} km</span></ion-text>
+          <ion-text *ngIf="trip.caravanUsed">Caravan Used: <span class="text-right">{{trip.caravanUsed}}</span>
+          </ion-text>
+          <ion-text *ngIf="trip.vehicleUsed">Vehicle Used: <span class="text-right">{{trip.vehicleUsed}}</span>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
     <ng-template #loading>
-        <div class="text-center">
-            <ion-spinner color="light"></ion-spinner>
-        </div>
-    </ng-template> -->
-  </ion-grid>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3">
+                <ion-skeleton-text animated style="min-width: 100px; min-height: 100px;border-radius: 50%"></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="9">
+              <div margin>
+                <ion-skeleton-text animated></ion-skeleton-text>
+                <ion-skeleton-text animated></ion-skeleton-text>
+                <ion-skeleton-text animated></ion-skeleton-text>
+                <ion-skeleton-text animated></ion-skeleton-text>
+                <ion-skeleton-text animated></ion-skeleton-text>
+                <ion-skeleton-text animated></ion-skeleton-text>
+                <ion-skeleton-text animated></ion-skeleton-text>
+                </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col size="3">
+                  <ion-skeleton-text animated style="min-width: 100px; min-height: 100px;border-radius: 50%"></ion-skeleton-text>
+              </ion-col>
+              <ion-col size="9">
+                <div margin>
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                  </div>
+              </ion-col>
+            </ion-row>
+  
+            <ion-row>
+                <ion-col size="3">
+                    <ion-skeleton-text animated style="min-width: 100px; min-height: 100px;border-radius: 50%"></ion-skeleton-text>
+                </ion-col>
+                <ion-col size="9">
+                  <div margin>
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                    </div>
+                </ion-col>
+              </ion-row>
+  
+              <ion-row>
+                  <ion-col size="3">
+                      <ion-skeleton-text animated style="min-width: 100px; min-height: 100px;border-radius: 50%"></ion-skeleton-text>
+                  </ion-col>
+                  <ion-col size="9">
+                    <div margin>
+                      <ion-skeleton-text animated></ion-skeleton-text>
+                      <ion-skeleton-text animated></ion-skeleton-text>
+                      <ion-skeleton-text animated></ion-skeleton-text>
+                      <ion-skeleton-text animated></ion-skeleton-text>
+                      <ion-skeleton-text animated></ion-skeleton-text>
+                      <ion-skeleton-text animated></ion-skeleton-text>
+                      <ion-skeleton-text animated></ion-skeleton-text>
+                      </div>
+                  </ion-col>
+                </ion-row>
+        </ion-grid>
+    </ng-template>
+
+
+
+
 </ion-content>

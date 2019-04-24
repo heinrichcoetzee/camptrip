@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ITrip } from 'src/app/shared/ITrips.interface';
 
 @Component({
   selector: 'app-edit-trip',
@@ -7,13 +8,33 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit-trip.page.scss'],
 })
 export class EditTripPage implements OnInit {
+  trip:ITrip;
 
-  constructor(private router:Router) { }
+  constructor(private router:Router,private activatedRoute:ActivatedRoute) {
+        this.initTrip();
+  }
+  initTrip(){
+    this.trip = {};
+    this.trip = {
+      uid:"",
+      fromDate:new Date(),
+      toDate:new Date(),
+      memories:[],
+      photos:[]
+    };
+  }
+
+  ionViewWillEnter(){
+    this.trip = this.activatedRoute.snapshot.params;
+    console.log("trip key",this.trip);
+
+  }
 
   ngOnInit() {
   }
+
   back(){
-    this.router.navigate(['main/tabs/trips'])
+    this.router.navigate(['main/tabs/trips']);
   }
 
 }

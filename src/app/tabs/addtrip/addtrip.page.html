@@ -24,20 +24,19 @@
       <ion-col size="12">
         <form #detailForm="ngForm">
           <ion-item>
-            <ion-label position="stacked">Trip Name</ion-label>
+            <ion-label position="stacked">Trip Name *</ion-label>
             <ion-input [(ngModel)]="trip.name" name="name" required></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label position="stacked">Location</ion-label>
+            <ion-label position="stacked">Location *</ion-label>
             <ion-input (ionChange)="locationChange()" [(ngModel)]="trip.location" name="location" required></ion-input>
-            <div #Map class="map"></div>
           </ion-item>
           <ion-item>
-            <ion-label position="stacked">Description</ion-label>
+            <ion-label position="stacked">Description *</ion-label>
             <ion-textarea [(ngModel)]="trip.description" name="description" required></ion-textarea>
           </ion-item>
           <ion-item>
-            <ion-label position="stacked">Kilometers traveled</ion-label>
+            <ion-label position="stacked">Kilometers traveled *</ion-label>
             <ion-input [(ngModel)]="trip.kilometersTraveled" name="kilometersTraveled" type="number" required></ion-input>
           </ion-item>
           <ion-item>
