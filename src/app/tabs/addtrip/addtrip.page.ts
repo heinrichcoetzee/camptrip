@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 
+
 declare var google: any;
 @Component({
   selector: 'app-addtrip',
@@ -21,9 +22,8 @@ export class AddtripPage implements OnInit {
   trip:ITrip;
   showDetails:boolean;
   photos:Array<any> = [];
-  dateOptions:any;
   mapOptions: any;
-
+  detailForm:NgForm;
   constructor(
     private camera:Camera,
     private toast:ToastController,
@@ -39,58 +39,11 @@ export class AddtripPage implements OnInit {
   }
   @ViewChild('slides') slides: IonSlides;
   @ViewChild('Map') map :ElementRef;
-  @ViewChild('detailForm') detailForm:NgForm;
+  
 
   ngOnInit() {
-    this.dateOptions = {
-      fromDateMin:'1970',
-      fromDateMax:new Date().getFullYear(),
-      toDateMin:'1970',
-      toDateMax:new Date().getFullYear()
-    };
-    
-  }
-
-  locationChange() {
-    // setTimeout(() => {
-    //   var service = new google.maps.places.PlacesService(this.map);
-    //   let request = {
-    //     query: this.trip.location
-    //   }
-    //   service.nearbySearch(request, (result, status) => {
-    //     console.log("Google Result - ",result)
-    //     console.log("Google Status - ",status)
-    //   })
-    // }, 500)
 
   }
-
-  parseDate(date:Date | string){
-    const year = new Date(date).getFullYear();
-    const month = new Date(date).getMonth();
-    const day = new Date(date).getDate();
-    return new Date(year,month,day,0,0,0,0);
-  }
-
-  dateToString(date:Date){
-    const year = date.getFullYear();
-    const month = date.getMonth()+1;
-    const day = date.getDate();
-    return year.toString() + '-' + (month<10?'0':'') + (date.getMonth()+1).toString() + '-' +  (day<10?'0':'') + day.toString();
-  }
-
- toDateChange(){
-    const diff = this.parseDate(this.trip.toDate).getTime() - this.parseDate(this.trip.fromDate).getTime();
-    const oneDay = 1000*60*60*24;
-    this.trip.duration = Math.round((diff / oneDay))+1;
- }
-
- fromDateChange(){
-  this.dateOptions.toDateMax = new Date().getFullYear();
-  this.dateOptions.toDateMin = this.dateToString(new Date(this.trip.fromDate));
-
- }
-
 
  async presentToast(message) {
   const toast = await this.toast.create({
@@ -102,6 +55,8 @@ export class AddtripPage implements OnInit {
 }
 
   async addTrip(){
+    console.log("this.detailform",this.detailForm);
+    console.log(this.trip);
     if(typeof this.detailForm=="undefined"){
       this.presentToast('Tap "Add Details" and fill out the details');
       return;

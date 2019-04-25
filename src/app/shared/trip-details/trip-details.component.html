@@ -1,0 +1,49 @@
+<ion-grid>
+<ion-row>
+  <ion-col size="12">
+    <ion-header text-center>Details</ion-header>
+  </ion-col>
+  <ion-col size="12">
+    <form #detailForm="ngForm">
+      <ion-item>
+        <ion-label position="stacked">Trip Name *</ion-label>
+        <ion-input [(ngModel)]="trip.name" name="name" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Location *</ion-label>
+        <ion-input (ionChange)="locationChange()" [(ngModel)]="trip.location" name="location" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Description *</ion-label>
+        <ion-textarea [(ngModel)]="trip.description" name="description" required></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Kilometers traveled *</ion-label>
+        <ion-input [(ngModel)]="trip.kilometersTraveled" name="kilometersTraveled" type="number" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">From Date</ion-label>
+        <ion-datetime [max]="dateOptions.fromDateMax" display-format="DD MMM YYYY"
+          [(ngModel)]="trip.fromDate" name="fromDate" (ionChange)="fromDateChange()"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">To Date</ion-label>
+        <ion-datetime [min]="dateOptions.toDateMin" [max]="dateOptions.toDateMax" display-format="DD MMM YYYY"
+          [(ngModel)]="trip.toDate" name="toDate" (ionChange)="toDateChange()"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Trip Duration (Days)</ion-label>
+        <ion-input [(ngModel)]="trip.duration" name="duration" type="number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Caravan Used</ion-label>
+        <ion-input [(ngModel)]="trip.caravanUsed" name="caravanUsed" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Vehicle Used</ion-label>
+        <ion-input [(ngModel)]="trip.vehicleUsed" name="vehicleUsed" type="text"></ion-input>
+      </ion-item>
+    </form>
+  </ion-col>
+</ion-row>
+</ion-grid>
