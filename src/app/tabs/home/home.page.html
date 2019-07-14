@@ -5,5 +5,44 @@
 </ion-header>
 
 <ion-content>
+  <ng-container *ngIf="(profile); else loading">
+    <ion-grid>
+      <ion-row class="section">
+        <ion-col size="6">
+            <div class="metric">
+              <div class="amount">5</div>
+              <div class="text">Trips Logged</div>
+            </div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="metric">
+            <div class="amount">10</div>
+            <div class="text">Memories Created</div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <app-caravan-drop [profile]="profile" (add)="addCaravan($event)"></app-caravan-drop>
+        </ion-col>
+      </ion-row>
 
+      <ion-row>
+        <ion-col size="12">
+          <app-vehicle-drop [profile]="profile" (add)="addVehicle($event)"></app-vehicle-drop>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-container>
+  <ng-template #loading>
+    <div class="avatar-skeleton" margin>
+      <ion-skeleton-text animated style="width: 150px; height: 150px;border-radius: 50%"></ion-skeleton-text>
+    </div>
+    <div class="input-skeleton">
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </div>
+  </ng-template>
 </ion-content>

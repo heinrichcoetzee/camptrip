@@ -18,6 +18,7 @@ import { Facebook } from '@ionic-native/facebook/ngx';
 import { Camera } from "@ionic-native/camera/ngx";
 import { SharedModule } from './shared/shared.module';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [AppComponent],

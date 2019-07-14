@@ -6,6 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { HomePage } from './home.page';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { UserService } from 'src/app/services/user.service';
 
 const routes: Routes = [
   {
@@ -19,8 +21,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    SharedModule,
     RouterModule.forChild(routes)
   ],
+  providers:[UserService],
   declarations: [HomePage]
 })
 export class HomePageModule {}

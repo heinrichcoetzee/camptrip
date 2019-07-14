@@ -5,6 +5,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, Subject } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { takeUntil } from 'rxjs/operators';
+import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-trips',
@@ -16,6 +17,7 @@ export class TripsPage implements OnInit {
   destroy$:Subject<void> = new Subject();
   loadingImage:any;
   constructor(
+    private globalService:GlobalService,
     private firestore:AngularFirestore,
     private fireAuth:AngularFireAuth,
     private router:Router
@@ -51,7 +53,8 @@ export class TripsPage implements OnInit {
 
 
   editItem(trip:ITrip){
-    this.router.navigate(['edit-trip',trip]);
+    this.globalService.editTrip = trip;
+    this.router.navigate(['edit-trip']);
   }
 
 }

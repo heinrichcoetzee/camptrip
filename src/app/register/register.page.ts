@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { IRegistrationUser } from '../shared/IRegistrationUser.interface';
+import { IUser } from '../shared/IUser.interface';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastController, LoadingController } from '@ionic/angular';
@@ -15,7 +15,7 @@ import { Form } from '@angular/forms';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  model:IRegistrationUser;
+  model:IUser;
   errorMessage:string = "";
   registerLoading:boolean = false;
   constructor(

@@ -82,3 +82,13 @@ ion-input{
 ion-input{
   --highlight-color-valid:transparent;
 }
+
+ion-list{
+  &.list-md{
+      background:transparent;
+  }
+  .in-list.item{
+    --background:transparent;
+    --color: #fff;
+  }
+}

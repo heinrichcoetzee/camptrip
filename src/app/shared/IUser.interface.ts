@@ -2,7 +2,8 @@ import { ICaravan } from './ICaravan.interface';
 import { IVehicle } from './IVehicle.interface';
 
 
-export interface IRegistrationUser{
+export interface IUser{
+    key?:string;
     name:string;
     uid?:string;
     surname:string;

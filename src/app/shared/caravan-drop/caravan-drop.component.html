@@ -1,0 +1,27 @@
+
+<ion-header margin-top text-center>Your Caravan <ion-icon *ngIf="!showAddnew" name="add-circle" color="light" (click)="showAddnew=true"></ion-icon></ion-header>
+<ion-list *ngIf="profile && profile.caravans">
+  <ion-item *ngFor="let caravan of profile.caravans">
+    <ion-label>
+      {{caravan.make}} {{caravan.model}}
+    </ion-label>
+  </ion-item>
+</ion-list>
+
+
+<div *ngIf="showAddnew">
+<ion-select placeholder="Select Caravan Make" [(ngModel)]="caravan.make">
+  <ion-select-option value="other">Other</ion-select-option>
+  <ion-select-option value="Jurgens">Jurgens</ion-select-option>
+  <ion-select-option value="Echo">Echo</ion-select-option>
+</ion-select>
+<ion-select placeholder="Select Caravan Model" [(ngModel)]="caravan.model">
+  <ion-select-option value="other">Other</ion-select-option>
+  <ion-select-option value="1"> 1</ion-select-option>
+  <ion-select-option value="2"> 2</ion-select-option>
+</ion-select>
+
+<ion-button expand="block" color="orange" (click)="addCaravan()">
+  Add Caravan
+</ion-button>
+</div>

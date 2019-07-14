@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IRegistrationUser } from 'src/app/shared/IRegistrationUser.interface';
+import { IUser } from 'src/app/shared/IUser.interface';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -13,7 +13,7 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  profile:IRegistrationUser;
+  profile:IUser;
   profile$:Observable<any>;
   destroy$:Subject<void> = new Subject();
   picture:string;
@@ -35,7 +35,7 @@ export class ProfilePage implements OnInit {
   }
 
   ionViewDidEnter(){
-      this.profile$.pipe(takeUntil(this.destroy$)).subscribe((user:IRegistrationUser)=>{
+      this.profile$.pipe(takeUntil(this.destroy$)).subscribe((user:IUser)=>{
         this.profile = user[0];
         this.picture = this.profile.profilePicture?this.profile.profilePicture:undefined;
       });

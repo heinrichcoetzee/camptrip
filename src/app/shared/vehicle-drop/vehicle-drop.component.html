@@ -1,0 +1,23 @@
+<ion-header margin-top text-center>Your Vehicles</ion-header>
+<ion-list *ngIf="profile && profile.vehicles">
+  <ion-item *ngFor="let caravan of profile.caravans">
+    <ion-label>
+      {{vehicle.make}} {{vehicle.model}}
+    </ion-label>
+  </ion-item>
+</ion-list>
+
+<ion-select placeholder="Select Vehicle Make" [(ngModel)]="vehicle.make">
+  <ion-select-option value="other">Other</ion-select-option>
+  <ion-select-option value="Jurgens">Jurgens</ion-select-option>
+  <ion-select-option value="Echo">Echo</ion-select-option>
+</ion-select>
+<ion-select placeholder="Select Vehicle Model" [(ngModel)]="vehicle.model">
+  <ion-select-option value="other">Other</ion-select-option>
+  <ion-select-option value="1"> 1</ion-select-option>
+  <ion-select-option value="2"> 2</ion-select-option>
+</ion-select>
+
+<ion-button expand="block" color="orange" (click)="addVehicle()">
+  Add Vehicle
+</ion-button>

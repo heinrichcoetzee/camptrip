@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { ITrip, IMemory } from 'src/app/shared/ITrips.interface';
-import { Camera, DestinationType, MediaType, PictureSourceType, CameraOptions } from '@ionic-native/camera/ngx';
-import { ToastController, IonSlides } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 import { ToastOptions } from '@ionic/core';
 import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
@@ -25,7 +24,6 @@ export class AddtripPage implements OnInit {
   mapOptions: any;
   detailForm:NgForm;
   constructor(
-    private camera:Camera,
     private toast:ToastController,
     private firestore:AngularFirestore,
     private firestorage:AngularFireStorage,
@@ -37,7 +35,7 @@ export class AddtripPage implements OnInit {
     this.showDetails = false;
    
   }
-  @ViewChild('slides') slides: IonSlides;
+  
   @ViewChild('Map') map :ElementRef;
   
 
@@ -115,27 +113,7 @@ export class AddtripPage implements OnInit {
   }
 
 
-  removePhoto(index:number){
-    this.photos.splice(index,1);
-    this.slides.slidePrev();
-  };
 
-  async addPhoto() {
-      const options: CameraOptions = {
-        correctOrientation: true,
-        destinationType: DestinationType.DATA_URL,
-        mediaType: MediaType.PICTURE,
-        sourceType: PictureSourceType.PHOTOLIBRARY,
-        targetWidth:640
-      };
-      this.camera.getPicture(options).then(async (picture) => {
-        const base64 = `data:image/jpeg;base64,${picture}`;
-        this.photos.push(base64);
-        setTimeout(()=>{
-          this.slides.slideTo(this.photos.length);
-        },100);
-      });
-  }
 
 
   addMemory(memory:IMemory){

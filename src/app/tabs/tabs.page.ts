@@ -20,9 +20,9 @@ export class TabsPage{
   }
 
   ionViewWillEnter(){
-    if(this._fireAuth.auth.currentUser == null){
-      this.router.navigate(['/login']);
-    }
+    // if(this._fireAuth.auth.currentUser == null){
+    //   this.router.navigate(['/login']);
+    // }
   }
 
   openAddTrip(){
