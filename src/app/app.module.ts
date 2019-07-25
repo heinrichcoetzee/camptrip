@@ -13,6 +13,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { AuthService } from './services/auth.service';
 import { Facebook } from '@ionic-native/facebook/ngx';
 import { Camera } from "@ionic-native/camera/ngx";
@@ -30,6 +31,7 @@ import { UserService } from './services/user.service';
     AngularFirestoreModule, 
     AngularFireAuthModule, 
     AngularFireStorageModule,
+    AngularFireFunctionsModule,
     SharedModule
   ],
   providers: [

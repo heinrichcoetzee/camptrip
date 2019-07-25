@@ -1,27 +1,64 @@
+<ion-header class="ion-margin-top ion-text-center">Your Caravan
+  <div class="add-icon">
+    <ion-icon *ngIf="!showAddnew" name="add-circle" color="orange" size="large" (click)="showAddnew=true"></ion-icon>
+  </div>
 
-<ion-header margin-top text-center>Your Caravan <ion-icon *ngIf="!showAddnew" name="add-circle" color="light" (click)="showAddnew=true"></ion-icon></ion-header>
+</ion-header>
+
 <ion-list *ngIf="profile && profile.caravans">
-  <ion-item *ngFor="let caravan of profile.caravans">
-    <ion-label>
-      {{caravan.make}} {{caravan.model}}
-    </ion-label>
+  <ion-item *ngFor="let item of profile.caravans">
+      <ion-grid>
+        <ion-row *ngIf="!item.editing">
+          <ion-col size="10">
+            {{item.make}} {{item.model}}
+          </ion-col>
+          <ion-col size="2">
+            <div class="inline-icon">
+              <ion-icon name="create" color="green" (click)="editCaravan(item);item.editing=true"></ion-icon>
+              <ion-icon name="trash" color="danger" (click)="deleteCaravan(item)"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="item.editing">
+          <ion-col size="5">
+            <ion-select placeholder="Select Caravan Make" [(ngModel)]="item.make">
+              <ion-select-option value="other">Other</ion-select-option>
+              <ion-select-option value="Jurgens">Jurgens</ion-select-option>
+              <ion-select-option value="Echo">Echo</ion-select-option>
+            </ion-select>
+          </ion-col>
+          <ion-col size="5">
+            <ion-select placeholder="Select Caravan Model" [(ngModel)]="item.model" *ngIf="item.make!=='other'">
+              <ion-select-option value="other">Other</ion-select-option>
+              <ion-select-option value="1"> 1</ion-select-option>
+              <ion-select-option value="2"> 2</ion-select-option>
+            </ion-select>
+            <ion-input placeholder="Enter Caravan Model" type="text" [(ngModel)]="item.model" *ngIf="item.make==='other'"></ion-input>
+          </ion-col>
+          <ion-col size="2">
+            <ion-button class="update-btn" color="green" (click)="item.editing=!item.editing;editCaravan(item)">Update</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
   </ion-item>
 </ion-list>
 
 
 <div *ngIf="showAddnew">
-<ion-select placeholder="Select Caravan Make" [(ngModel)]="caravan.make">
-  <ion-select-option value="other">Other</ion-select-option>
-  <ion-select-option value="Jurgens">Jurgens</ion-select-option>
-  <ion-select-option value="Echo">Echo</ion-select-option>
-</ion-select>
-<ion-select placeholder="Select Caravan Model" [(ngModel)]="caravan.model">
-  <ion-select-option value="other">Other</ion-select-option>
-  <ion-select-option value="1"> 1</ion-select-option>
-  <ion-select-option value="2"> 2</ion-select-option>
-</ion-select>
+  <ion-select placeholder="Select Caravan Make" [(ngModel)]="caravan.make">
+    <ion-select-option value="other">Other</ion-select-option>
+    <ion-select-option value="Jurgens">Jurgens</ion-select-option>
+    <ion-select-option value="Echo">Echo</ion-select-option>
+  </ion-select>
+  <ion-select placeholder="Select Caravan Model" [(ngModel)]="caravan.model" *ngIf="caravan.make!=='other'">
+    <ion-select-option value="other">Other</ion-select-option>
+    <ion-select-option value="1"> 1</ion-select-option>
+    <ion-select-option value="2"> 2</ion-select-option>
+  </ion-select>
+  <ion-input placeholder="Enter Caravan Model" type="text" [(ngModel)]="caravan.model" *ngIf="caravan.make==='other'">
+  </ion-input>
 
-<ion-button expand="block" color="orange" (click)="addCaravan()">
-  Add Caravan
-</ion-button>
+  <ion-button expand="block" color="orange" (click)="addCaravan()">
+    Add Caravan
+  </ion-button>
 </div>

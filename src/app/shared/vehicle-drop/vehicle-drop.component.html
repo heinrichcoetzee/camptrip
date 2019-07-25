@@ -1,23 +1,64 @@
-<ion-header margin-top text-center>Your Vehicles</ion-header>
-<ion-list *ngIf="profile && profile.vehicles">
-  <ion-item *ngFor="let caravan of profile.caravans">
-    <ion-label>
-      {{vehicle.make}} {{vehicle.model}}
-    </ion-label>
-  </ion-item>
-</ion-list>
-
-<ion-select placeholder="Select Vehicle Make" [(ngModel)]="vehicle.make">
-  <ion-select-option value="other">Other</ion-select-option>
-  <ion-select-option value="Jurgens">Jurgens</ion-select-option>
-  <ion-select-option value="Echo">Echo</ion-select-option>
-</ion-select>
-<ion-select placeholder="Select Vehicle Model" [(ngModel)]="vehicle.model">
-  <ion-select-option value="other">Other</ion-select-option>
-  <ion-select-option value="1"> 1</ion-select-option>
-  <ion-select-option value="2"> 2</ion-select-option>
-</ion-select>
-
-<ion-button expand="block" color="orange" (click)="addVehicle()">
-  Add Vehicle
-</ion-button>
+<ion-header class="ion-margin-top ion-text-center">Your Vehicle
+    <div class="add-icon">
+      <ion-icon *ngIf="!showAddnew" name="add-circle" color="orange" size="large" (click)="showAddnew=true"></ion-icon>
+    </div>
+  
+  </ion-header>
+  
+  <ion-list *ngIf="profile && profile.vehicles">
+    <ion-item *ngFor="let item of profile.vehicles">
+        <ion-grid>
+          <ion-row *ngIf="!item.editing">
+            <ion-col size="10">
+              {{item.make}} {{item.model}}
+            </ion-col>
+            <ion-col size="2">
+              <div class="inline-icon">
+                <ion-icon name="create" color="green" (click)="editVehicle(item);item.editing=true"></ion-icon>
+                <ion-icon name="trash" color="danger" (click)="deleteVehicle(item)"></ion-icon>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="item.editing">
+            <ion-col size="5">
+              <ion-select placeholder="Select vehicle Make" [(ngModel)]="item.make">
+                <ion-select-option value="other">Other</ion-select-option>
+                <ion-select-option value="Jurgens">Jurgens</ion-select-option>
+                <ion-select-option value="Echo">Echo</ion-select-option>
+              </ion-select>
+            </ion-col>
+            <ion-col size="5">
+              <ion-select placeholder="Select vehicle Model" [(ngModel)]="item.model" *ngIf="item.make!=='other'">
+                <ion-select-option value="other">Other</ion-select-option>
+                <ion-select-option value="1"> 1</ion-select-option>
+                <ion-select-option value="2"> 2</ion-select-option>
+              </ion-select>
+              <ion-input placeholder="Enter vehicle Model" type="text" [(ngModel)]="item.model" *ngIf="item.make==='other'"></ion-input>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button class="update-btn" color="green" (click)="item.editing=!item.editing;editVehicle(item)">Update</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+    </ion-item>
+  </ion-list>
+  
+  
+  <div *ngIf="showAddnew">
+    <ion-select placeholder="Select vehicle Make" [(ngModel)]="vehicle.make">
+      <ion-select-option value="other">Other</ion-select-option>
+      <ion-select-option value="Jurgens">Jurgens</ion-select-option>
+      <ion-select-option value="Echo">Echo</ion-select-option>
+    </ion-select>
+    <ion-select placeholder="Select vehicle Model" [(ngModel)]="vehicle.model" *ngIf="vehicle.make!=='other'">
+      <ion-select-option value="other">Other</ion-select-option>
+      <ion-select-option value="1"> 1</ion-select-option>
+      <ion-select-option value="2"> 2</ion-select-option>
+    </ion-select>
+    <ion-input placeholder="Enter vehicle Model" type="text" [(ngModel)]="vehicle.model" *ngIf="vehicle.make==='other'">
+    </ion-input>
+  
+    <ion-button expand="block" color="orange" (click)="addVehicle()">
+      Add vehicle
+    </ion-button>
+  </div>

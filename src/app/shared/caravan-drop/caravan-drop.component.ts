@@ -2,7 +2,14 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
 import { IUser } from '../IUser.interface';
 import { ICaravan } from '../ICaravan.interface';
 import { UserService } from 'src/app/services/user.service';
-import { ToastController } from '@ionic/angular';
+import { ToastController, ModalController, AlertController } from '@ionic/angular';
+
+
+export class CaravanModal {
+  constructor(){
+    
+  }
+}
 
 @Component({
   selector: 'app-caravan-drop',
@@ -11,14 +18,14 @@ import { ToastController } from '@ionic/angular';
 })
 export class CaravanDropComponent implements OnChanges {
   @Input() profile:IUser;
-  @Output() add:EventEmitter<Array<ICaravan>> = new EventEmitter();
+  @Output() update:EventEmitter<Array<ICaravan>> = new EventEmitter();
   caravans;
   caravan:ICaravan = {
     make:'',
     model:''
   };
   showAddnew:boolean = false;
-  constructor(private toast:ToastController) {
+  constructor(private toast:ToastController,public modal: ModalController,private alertCtrl:AlertController) {
     
   }
 
@@ -30,7 +37,8 @@ export class CaravanDropComponent implements OnChanges {
     
     if(this.caravan.make && this.caravan.model){  
       this.caravans.push(this.caravan);
-      this.add.emit(this.caravans);
+      this.update.emit(this.caravans);
+      this.caravan = {make:"",model:''};
       this.showAddnew = false;
     }else{
       let toast = await this.toast.create({
@@ -40,6 +48,31 @@ export class CaravanDropComponent implements OnChanges {
       });
       toast.present();
     }
+  }
+
+  editCaravan(caravan:ICaravan){
+    delete caravan['editing'];
+    this.caravans[(parseFloat(caravan._id)-1)] = caravan;
+    this.update.emit(this.caravans)
+  }
+
+   async deleteCaravan(caravan:ICaravan,){
+    let alert = await this.alertCtrl.create({
+      message: `Are you sure you want to delete ${caravan.make} ${caravan.make}?`,
+      buttons:[{
+        text: 'Cancel',
+        role: 'cancel'
+      },
+      {
+        text: 'Delete',
+        handler: () => {
+          this.caravans.splice((parseFloat(caravan._id)-1),1);
+          this.update.emit(this.caravans)
+        }
+      }]
+    })
+    alert.present();
+   
   }
 
 }

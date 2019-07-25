@@ -12,7 +12,7 @@ import { first } from 'rxjs/operators';
 })
 export class LoginPage implements OnInit {
   email:string = "heinrichcoetzee@icloud.com";
-  password:string = "123456";
+  password:string = "Grayson#2019";
   errorMessage:string;
   loginLoading:boolean = false;
   userVerified:boolean = false;
