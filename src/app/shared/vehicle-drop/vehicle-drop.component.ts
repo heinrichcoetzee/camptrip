@@ -35,7 +35,7 @@ export class VehicleDropComponent implements OnChanges {
       this.showAddnew = false;
     }else{
       let toast = await this.toast.create({
-        message: "Please select vehicle make and model",
+        message: "Please select caravan make and model",
         color:"danger",
         duration: 2000
       });

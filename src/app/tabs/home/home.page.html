@@ -10,13 +10,13 @@
       <ion-row class="section">
         <ion-col size="6">
             <div class="metric">
-              <div class="amount">5</div>
+              <div class="amount">{{stats.totalTrips}}</div>
               <div class="text">Trips Logged</div>
             </div>
         </ion-col>
         <ion-col size="6">
           <div class="metric">
-            <div class="amount">10</div>
+            <div class="amount">{{stats.totalMemories}}</div>
             <div class="text">Memories Created</div>
           </div>
         </ion-col>
@@ -29,7 +29,7 @@
 
       <ion-row>
         <ion-col size="12">
-          <app-vehicle-drop [profile]="profile" (add)="addVehicle($event)"></app-vehicle-drop>
+          <app-vehicle-drop [profile]="profile" (update)="updateVehicle($event)"></app-vehicle-drop>
         </ion-col>
       </ion-row>
     </ion-grid>

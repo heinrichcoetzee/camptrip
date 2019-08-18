@@ -2,7 +2,7 @@ import * as functions from 'firebase-functions';
 import { Firestore, QuerySnapshot } from '@google-cloud/firestore';
 import { ICaravan } from '../../src/app/shared/ICaravan.interface';
 
-const updateCaravan = functions.https.onCall(async (caravans: Array<ICaravan>, context) => {
+const updatecaravan = functions.https.onCall(async (caravans: Array<ICaravan>, context) => {
     const uid = context && context.auth ? context.auth.uid : '';
     console.log("User", caravans)
     console.log("uid", uid)
@@ -34,4 +34,4 @@ const updateCaravan = functions.https.onCall(async (caravans: Array<ICaravan>, c
 
 
 
-module.exports = updateCaravan;
+module.exports = updatecaravan;

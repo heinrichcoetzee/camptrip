@@ -52,37 +52,50 @@ export class AddtripPage implements OnInit {
   toast.present();
 }
 
-  async addTrip(){
-    console.log("this.detailform",this.detailForm);
+  async addTrip() {
+    console.log("this.detailform", this.detailForm);
     console.log(this.trip);
-    if(typeof this.detailForm=="undefined"){
+    if (typeof this.detailForm === "undefined") {
       this.presentToast('Tap "Add Details" and fill out the details');
       return;
     }
-   if(this.detailForm.invalid){
-     this.presentToast("Please complete the fields with a *");
-     return;
-   }
+    if (this.detailForm.invalid) {
+      this.presentToast("Please complete the fields with a *");
+      return;
+    }
     let loading = await this.loadingController.create({
       message: 'Creating Trip...'
     });
     loading.present();
-    await this.firestore.collection('trips').add(this.trip).then((documentRef:DocumentReference)=>{
+    await this.firestore.collection('trips').add(this.trip)
+    .then((documentRef: DocumentReference) => {
       this.trip.key = documentRef.id;
+      console.log("Trip Key ",this.trip.key)
+    }).catch(async (error)=>{
+      console.log("Error Creating Trip",error);
+      let alert = await this.toast.create({message:'Could Not Create Trip'});
+      alert.present()
+      return;
     });
+
     loading.dismiss();
-    loading = await this.loadingController.create({
-      message: 'Uploading Photos...'
-    });
-    loading.present();
-    await this.uploadPhotos();
-    loading.dismiss();
-    loading = await this.loadingController.create({
-      message: 'Finishing Trip...'
-    });
-    loading.present();
-    await this.firestore.collection('trips').doc(this.trip.key).update(this.trip);
-    loading.dismiss();
+
+    if(this.photos.length){
+        loading = await this.loadingController.create({
+          message: 'Uploading Photos...'
+        });
+        loading.present();
+        await this.uploadPhotos();
+        loading.dismiss();
+        loading = await this.loadingController.create({
+          message: 'Finishing Trip...'
+        });
+        loading.present();
+        await this.firestore.collection('trips').doc(this.trip.key).update(this.trip);
+        loading.dismiss();
+  }
+
+
 
     this.initTrip();
     this.router.navigate(['main/tabs/trips']);
@@ -101,6 +114,8 @@ export class AddtripPage implements OnInit {
 
   async uploadPhotos():Promise<any>{  
      return new Promise((resolve)=>{
+        console.log(this.photos.length + " photos to upload");
+        
           this.photos.map(async (photo,index)=>{
             const path = 'photos/' + this.trip.key +'/' + index;
             await this.firestorage.ref(path).putString(photo.substring(23),'base64');

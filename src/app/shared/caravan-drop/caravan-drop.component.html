@@ -1,12 +1,13 @@
 <ion-header class="ion-margin-top ion-text-center">Your Caravan
   <div class="add-icon">
     <ion-icon *ngIf="!showAddnew" name="add-circle" color="orange" size="large" (click)="showAddnew=true"></ion-icon>
+    <ion-icon *ngIf="showAddnew" name="close" color="danger" size="large" (click)="showAddnew=false"></ion-icon>
   </div>
 
 </ion-header>
 
-<ion-list *ngIf="profile && profile.caravans">
-  <ion-item *ngFor="let item of profile.caravans">
+<div class="editable-list" *ngIf="profile && profile.caravans">
+  <div *ngFor="let item of profile.caravans">
       <ion-grid>
         <ion-row *ngIf="!item.editing">
           <ion-col size="10">
@@ -40,8 +41,8 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-  </ion-item>
-</ion-list>
+  </div>
+</div>
 
 
 <div *ngIf="showAddnew">

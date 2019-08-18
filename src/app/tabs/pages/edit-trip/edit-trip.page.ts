@@ -53,8 +53,7 @@ export class EditTripPage implements OnInit {
   
 
   async saveTrip(){
-    console.log("this.detailform",this.detailForm);
-    console.log(this.trip);
+
     if(typeof this.detailForm=="undefined"){
       this.presentToast('Tap "Add Details" and fill out the details');
       return;
@@ -67,25 +66,9 @@ export class EditTripPage implements OnInit {
       message: 'Saving Trip...'
     });
     loading.present();
-    await this.firestore.collection('trips').add(this.trip).then((documentRef:DocumentReference)=>{
-      this.trip.key = documentRef.id;
-    });
-    loading.dismiss();
-    loading = await this.loadingController.create({
-      message: 'Uploading Photos...'
-    });
-    loading.present();
-    
     await this.uploadPhotos();
-    
-    loading.dismiss();
-    loading = await this.loadingController.create({
-      message: 'Finishing Trip...'
-    });
-    loading.present();
     await this.firestore.collection('trips').doc(this.trip.key).update(this.trip);
     loading.dismiss();
-
     this.router.navigate(['main/tabs/trips']);
   }
 

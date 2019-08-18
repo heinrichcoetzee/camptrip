@@ -83,12 +83,9 @@ ion-input{
   --highlight-color-valid:transparent;
 }
 
-ion-list{
-  &.list-md{
-      background:transparent;
-  }
-  .in-list.item{
-    --background:transparent;
-    --color: #fff;
-  }
+
+
+.editable-list{
+  border-top: 2px solid var(--color-green);
+  margin-top:1rem;
 }
