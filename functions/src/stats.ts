@@ -20,7 +20,7 @@ const getstats = functions.https.onCall(async ({}, context) => {
         console.log('snapshot - ',trips)
     });
 
-    let statObj:IGetStats = {
+    const statObj:IGetStats = {
         totalTrips: trips.length,
         totalMemories: trips.map((t:ITrip)=>t.memories).length
     }

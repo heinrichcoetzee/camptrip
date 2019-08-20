@@ -3,19 +3,22 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { AngularFireFunctions } from '@angular/fire/functions';
 
 @Injectable()
 export class UserService {
   public profile$:Observable<any> = new Observable();
-  constructor(private _fireAuth:AngularFireAuth,private _firestore:AngularFirestore) {   
+  constructor(private _fireAuth:AngularFireAuth,private _firestore:AngularFirestore,private fns:AngularFireFunctions) {   
   }
 
+  getUserStats():Observable<any>{
+    const callable = this.fns.httpsCallable('profile-getstats');
+    return callable({}).pipe(map(i=>i.data));
+  }
 
   getUserProfile():Observable<any>{
-    console.log("Getting profile",this._fireAuth.auth.currentUser.uid);
-    return this._firestore.collection('users',(ref)=>ref.where('uid','==',this._fireAuth.auth.currentUser.uid).limit(1)).snapshotChanges()
-    .pipe(map(user => user.map(this.setKey)));
-    
+    const callable = this.fns.httpsCallable('profile-getprofile');
+    return callable({}).pipe(map(i=>i.data));
   }
 
 

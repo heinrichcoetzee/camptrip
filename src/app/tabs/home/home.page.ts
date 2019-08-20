@@ -16,28 +16,16 @@ import { IGetStats } from 'src/app/shared/IGetStats.interface';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  profile: IUser = {
-    name: "",
-    surname: "",
-    email: "",
-    caravans: [{ make: "Jurgens", model: '1' }]
-  };
+  profile: IUser;
   destroy$: Subject<void> = new Subject();
   data$:Observable<any>;
-  stats:IGetStats = {
-    totalTrips:0,
-    totalMemories:0
-  };
+  stats:IGetStats;
   constructor(private toast: ToastController, private router: Router, private userService: UserService,private fns: AngularFireFunctions) {
     
   }
 
   ngOnInit() {
-    const callable = this.fns.httpsCallable('profile-getstats');
-    callable({}).toPromise().then(stats=>{
-      this.stats = stats.data;
-      console.log("Stats",stats)
-    })
+   
   }
 
   ionViewWillEnter() {
@@ -45,9 +33,13 @@ export class HomePage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.userService.getUserProfile().subscribe((user: Array<IUser>) => {
-      this.profile = user[0];
-    })
+    this.userService.getUserStats().toPromise().then((stats:IGetStats)=>{
+      this.stats = stats;
+    });
+
+    this.userService.getUserProfile().toPromise().then((user: IUser) => {
+      this.profile = user;
+    });
   }
 
   ionViewDidLeave() {
