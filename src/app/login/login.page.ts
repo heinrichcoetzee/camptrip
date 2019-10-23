@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
 import { AuthService } from '../services/auth.service';
-import { Facebook } from '@ionic-native/facebook/ngx';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { first } from 'rxjs/operators';
+import { ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -16,7 +17,7 @@ export class LoginPage implements OnInit {
   errorMessage:string;
   loginLoading:boolean = false;
   userVerified:boolean = false;
-  constructor(private router:Router, private _fireAuth:AngularFireAuth,private fb:Facebook) { }
+  constructor(private router:Router, private _fireAuth:AngularFireAuth,private fb:Facebook,private toast:ToastController) { }
 
   ngOnInit() {
    
@@ -76,8 +77,22 @@ export class LoginPage implements OnInit {
   }
 
   facebookLogin(){
-    this.errorMessage = "";
-    this.router.navigate(['main/tabs/home']);
+    
+    this.loginLoading = true;
+    this.fb.login(['public_profile', 'email'])
+    .then((res:FacebookLoginResponse)=>{
+      console.log(res);
+      this.loginLoading = false;
+    })
+    .catch(async (err)=>{
+      let error = await this.toast.create({
+        message:"Facebook login denied",
+        duration: 2000
+      });
+      error.present();
+      this.errorMessage = err.message;
+      this.loginLoading = false;
+    })
   //  this.fb.getAccessToken().then((token)=>{
   //   console.log("Token",token)
   //  }).catch((error)=>{
